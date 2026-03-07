@@ -1,3 +1,4 @@
+// src/types.ts
 export type Emotion = 'happy' | 'sad' | 'stressed' | 'anxious' | 'neutral';
 
 export type PersonalityType = 
@@ -16,6 +17,13 @@ export interface Expense {
   date: string;
   emotion: Emotion;
   isImpulse: boolean;
+}
+
+export interface BudgetGoal {
+  name: string;
+  amount: number;
+  currentAmount: number;
+  deadline?: string;
 }
 
 export interface UserProfile {

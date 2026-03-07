@@ -80,4 +80,27 @@ export const getSavingSuggestions = async (expenses: Expense[], monthlyBudget: n
     }
   });
   return JSON.parse(response.text);
+};export const getTriggerAnalysis = async (expenses: Expense[]) => {
+  const ai = getAI();
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: `Analyze impulse buys: ${JSON.stringify(expenses)}`,
+    config: {
+      systemInstruction: "Identify spending triggers. Return text.",
+    }
+  });
+  return response.text;
+};
+
+export const getSavingSuggestions = async (expenses: Expense[], monthlyBudget: number) => {
+  const ai = getAI();
+  const response = await ai.models.generateContent({
+    model: "gemini-3-flash-preview",
+    contents: `Analyze: ${JSON.stringify(expenses)}. Budget: ${monthlyBudget}`,
+    config: {
+      systemInstruction: "Suggest savings. Return JSON.",
+      responseMimeType: "application/json",
+    }
+  });
+  return JSON.parse(response.text);
 };
